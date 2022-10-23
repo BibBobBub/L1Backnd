@@ -1,5 +1,5 @@
 #!flask/bin/python
-import json
+import json, datetime
 from flask import Flask, jsonify, abort, request, make_response, url_for
 from flask_httpauth import HTTPBasicAuth
 
@@ -52,17 +52,38 @@ categ = [
 pay = [
     {
         'id': 1,
-        'id_usr': u'Buy groceries',
-        'id_categ': u'Milk, Cheese, Pizza, Fruit, Tylenol', 
-        'time': False,
-        'size': 1000
+        'id_usr': 2,
+        'id_categ': 2, 
+        'time': '2022-10-23 23:43:26.211232',
+        'size': 11020
     },
     {
         'id': 2,
         'id_usr': 1,
         'id_categ': 2, 
-        'time': False,
-        'size': 11000
+        'time': '2022-10-23 23:43:26.271232',
+        'size': 1721
+    },
+    {
+        'id': 3,
+        'id_usr': 1,
+        'id_categ': 2, 
+        'time': '2022-10-23 23:43:26.271232',
+        'size': 15
+    },
+    {
+        'id': 4,
+        'id_usr': 1,
+        'id_categ': 1, 
+        'time': '2022-10-23 23:43:26.271232',
+        'size': 180
+    },
+    {
+        'id': 5,
+        'id_usr': 2,
+        'id_categ': 2, 
+        'time': '2022-10-23 23:43:26.271232',
+        'size': 1200
     }
 ]
 
@@ -92,52 +113,128 @@ def get_categ():
 #@auth.login_required
 def get_task(task_id):
     task = list(filter(lambda t: t['id'] == task_id, user))
-    
-    #if len(list(task)) == 0:
-    #    abort(404)
-    return jsonify( { 'task': make_public_task(user[0])} )
+    return jsonify( { 'user': make_public_task(user[(task_id-1)])} )
 
-@app.route('/todo/api/v1.0/user', methods = ['POST'])
+@app.route('/todo/api/v1.0/user', methods = ['GET'])
 #@auth.login_required
-def create_task():
-    if not request.json or not 'name' in request.json:
-        abort(400)
-    task = {
+def create_user():
+    users = {
         'id': user[-1]['id'] + 1,
-        'name': request.json['name'],
-        #'description': request.json.get('description', ""),
-        #'done': False
+        'name': request.args.get('name', None),
     }
-    user.append(task)
-    return jsonify( { 'task': make_public_task(task) } ), 201
+    user.append(users)
+    return jsonify( { 'users': user[len(user)-1] } ), 201
 
-@app.route('/todo/api/v1.0/user/<int:task_id>', methods = ['PUT'])
+@app.route('/todo/api/v1.0/categ', methods = ['GET'])
 #@auth.login_required
-def update_task(task_id):
-    task = list(filter(lambda t: t['id'] == task_id, user))
-#    if len(task) == 0:
- #       abort(404)
-    if not request.json:
-        abort(400)
-    #if 'name' in request.json and type(request.json['name']) != unicode:
-    #    abort(400)
-   # if 'description' in request.json and type(request.json['description']) is not unicode:
-        abort(400)
-    #if 'done' in request.json and type(request.json['done']) is not bool:
-        abort(400)
-    task[0]['name'] = request.json.get('name', task[0]['name'])
-    #task[0]['description'] = request.json.get('description', task[0]['description'])
-    #task[0]['done'] = request.json.get('done', task[0]['done'])
-    return jsonify( { 'task': make_public_task(task[0]) } )
-    
-@app.route('/todo/api/v1.0/user/<int:task_id>', methods = ['DELETE'])
-#@auth.login_required
-def delete_task(task_id):
-    task = list(filter(lambda t: t['id'] == task_id, user))
-    if len(task) == 0:
-        abort(404)
-    user.remove(task[0])
-    return jsonify( { 'result': True } )
+def create_categ():
+    categs = {
+        'id': categ[-1]['id'] + 1,
+        'name': request.args.get('name', None),
+    }
+    categ.append(categs)
+    return jsonify( { 'categ': categ[len(categ)-1]} ), 201
+
+
+@app.route('/todo/api/v1.0/pay', methods = ['GET'])
+#@auth.login_required  datetime.datetime.now()
+def create_pay():
+    sizeR  = request.args.get('size', None)
+    userR  = request.args.get('user', None)
+    categR  = request.args.get('categ', None)
+    x=0
+    while x != len(user):
+        if userR == user[x]['name']:
+            payUser = user[x]['id']
+        x+=1
+    x=0
+    while x != len(categ):
+        if categR == categ[x]['name']:
+            payCateg=categ[x]['id']
+        x+=1                
+    timePay=datetime.datetime.now()
+    pays = {
+        'id': pay[-1]['id'] + 1,
+        'id_usr': payUser,
+        'id_categ': payCateg, 
+        'time': timePay,
+        'size': sizeR
+    }
+    pay.append(pays)
+    return jsonify( { 'pay': pays} ), 201
+
+@app.route('/todo/api/v1.0/showPayUsr', methods = ['GET'])
+#@auth.login_required  datetime.datetime.now()
+def show_pay_usr():
+    #sizeR  = request.args.get('size', None)
+    userR  = request.args.get('user', None)
+    #categR  = request.args.get('categ', None)
+    x=0
+    while x != len(user):
+        if userR == user[x]['name']:
+            Foud_id = user[x]['id']
+            uu=0
+            n=0
+            paysUsr={}
+            while uu != len(pay):
+                if Foud_id == pay[uu]['id_usr']:
+                    paysUsr[n] = {
+                    'id': pay[uu]['id'],
+                    'id_usr':pay[uu]['id_usr'],
+                    'id_categ':pay[uu]['id_categ'], 
+                    'time': pay[uu]['time'],
+                    'size': pay[uu]['size']
+                    }
+                    n+=1
+                uu+=1
+        x+=1
+    return (paysUsr)
+
+@app.route('/todo/api/v1.0/showPayUsrCat', methods = ['GET'])
+#@auth.login_required  datetime.datetime.now()
+def show_pay_usr_cat():
+    #sizeR  = request.args.get('size', None)
+    userR  = request.args.get('user', None)
+    categR  = request.args.get('categ', None)
+    x=0
+    while x != len(user):
+        if userR == user[x]['name']:
+            Foud_id = user[x]['id']
+            uu=0
+            n=0
+            paysUsr={}
+            while uu != len(pay):
+                if Foud_id == pay[uu]['id_usr']:
+                    paysUsr[n] = {
+                    'id': pay[uu]['id'],
+                    'id_usr':pay[uu]['id_usr'],
+                    'id_categ':pay[uu]['id_categ'], 
+                    'time': pay[uu]['time'],
+                    'size': pay[uu]['size']
+                    }
+                    n+=1
+                uu+=1
+        x+=1
+    x=0
+    while x != len(categ):
+        if categR == categ[x]['name']:
+            Foud_id_Cat = categ[x]['id']
+            uu=0
+            n=1
+            paysUsrCat={}
+            while uu != len(paysUsr):
+                if Foud_id_Cat == paysUsr[uu]['id_categ']:
+                    paysUsrCat[n] = {
+                    'id': paysUsr[uu]['id'],
+                    'id_usr':paysUsr[uu]['id_usr'],
+                    'id_categ':paysUsr[uu]['id_categ'], 
+                    'time': paysUsr[uu]['time'],
+                    'size': paysUsr[uu]['size']
+                    }
+                    n+=1
+                uu+=1
+        x+=1
+    return (paysUsrCat)
     
 if __name__ == '__main__':
     app.run(debug = True)
