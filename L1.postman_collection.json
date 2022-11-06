@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "445b5f61-68b2-4173-b4c2-a418dcba5e60",
+		"name": "L1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NEW USER",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "python",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "miguel",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{Envname}}/todo/api/v1.0/user?name=Bobs",
+					"protocol": "http",
+					"host": [
+						"{{Envname}}"
+					],
+					"path": [
+						"todo",
+						"api",
+						"v1.0",
+						"user"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Bobs"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NEW CATEG",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "python",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "miguel",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{Envname}}/todo/api/v1.0/categ?name=Cat",
+					"protocol": "http",
+					"host": [
+						"{{Envname}}"
+					],
+					"path": [
+						"todo",
+						"api",
+						"v1.0",
+						"categ"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Cat"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ all categ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{Envname}}/todo/api/v1.0/categ",
+					"protocol": "http",
+					"host": [
+						"{{Envname}}"
+					],
+					"path": [
+						"todo",
+						"api",
+						"v1.0",
+						"categ"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NEW PAY",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "python",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "miguel",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{Envname}}/todo/api/v1.0/pay?size=10010&user=Billy&categ=Car",
+					"protocol": "http",
+					"host": [
+						"{{Envname}}"
+					],
+					"path": [
+						"todo",
+						"api",
+						"v1.0",
+						"pay"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "10010"
+						},
+						{
+							"key": "user",
+							"value": "Billy"
+						},
+						{
+							"key": "categ",
+							"value": "Car"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "showPayUsr",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{Envname}}/todo/api/v1.0/showPayUsr?user=Billy&categ=Food",
+					"protocol": "http",
+					"host": [
+						"{{Envname}}"
+					],
+					"path": [
+						"todo",
+						"api",
+						"v1.0",
+						"showPayUsr"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "Billy"
+						},
+						{
+							"key": "categ",
+							"value": "Food"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "showPayUsrCat",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{Envname}}/todo/api/v1.0/showPayUsrCat?user=Billy&categ=Food",
+					"protocol": "http",
+					"host": [
+						"{{Envname}}"
+					],
+					"path": [
+						"todo",
+						"api",
+						"v1.0",
+						"showPayUsrCat"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "Billy"
+						},
+						{
+							"key": "categ",
+							"value": "Food"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usr id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{Envname}}/todo/api/v1.0/user/2",
+					"protocol": "http",
+					"host": [
+						"{{Envname}}"
+					],
+					"path": [
+						"todo",
+						"api",
+						"v1.0",
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "python",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "miguel",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"Name\":true}"
+				},
+				"url": {
+					"raw": "http://{{Envname}}/todo/api/v1.0/user/1",
+					"protocol": "http",
+					"host": [
+						"{{Envname}}"
+					],
+					"path": [
+						"todo",
+						"api",
+						"v1.0",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
